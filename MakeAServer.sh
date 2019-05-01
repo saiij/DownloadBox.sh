@@ -62,7 +62,6 @@ while true; do
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
     echo "Please create an account for MyJDownloader (https://my.jdownloader.org/login.html#register)"
-    break
     java -jar JDownloader.jar -norestart
     echo"
     [Unit]
