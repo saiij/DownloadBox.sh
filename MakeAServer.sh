@@ -63,7 +63,7 @@ while true; do
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
     read -r -p "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register). When you are done press [ENTER]." KEY
-        if [ $KEY = $'\x0a' ]; then
+        if [ $KEY=$'\x0a' ]; then
             sudo -u $USERNAME java -jar JDownloader.jar -norestart
             echo"
             [Unit]
@@ -87,9 +87,9 @@ while true; do
         fi
     sudo -u $USERNAME java -jar JDownloader.jar -norestart
     sleep 30s
-    killall java
+    killall /usr/bin/java -jar /home/$USERNAME/bin/jdownloader/JDownloader.jar
     # give out amount of time the script needed
-    DURATION=$(( SECONDS - START ))
+    DURATION=( $SECONDS - $START )
     echo "Finished in $DURATION sec."
     echo "Rebooting.."
     sleep 10s
