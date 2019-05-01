@@ -8,7 +8,7 @@ echo "
 Version 0.1
 "
 # check if script is run as root
-if [ "$EUID" -ne 0 ]
+if [ $USER != root ]
   then echo "Please run as root"
   exit
 fi
@@ -17,25 +17,25 @@ apt update
 apt upgrade
 # ask if user want to use an external storage
 while true; do
-    read -pr "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
-    case $yn in
+    read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
+    case "$yn" in
         [Yy]* ) STORAGE=true;;
         [Nn]* ) STORAGE=false;;
         * ) echo "Please answer (y)es or (n)o.";;
     esac
     if $STORAGE; then
         # format and mount external storage
-        parted --script /dev/sda 
+        sudo parted --script /dev/sda 
         mktable msdos
         mkpart primary ext4 0% 100%
-        mkfs.ext4 -L STORAGE /dev/sda1
-        mkdir /media/storage
-        mount /dev/sda1 /media/storage
+        sudo mkfs.ext4 -L STORAGE /dev/sda1
+        sudo mkdir /media/storage
+        sudo mount /dev/sda1 /media/storage
         echo "/dev/sda1 /media/usbhdd ext4 defaults 0 0" >> /etc/fstab
         # create jdownloader folders on external storage
-        mkdir /media/storage/jdownloader
-        mkdir /media/storage/jdownloader/downloading
-        mkdir /media/storage/jdownloader/extracted
+        sudo mkdir /media/storage/jdownloader
+        sudo mkdir /media/storage/jdownloader/downloading
+        sudo mkdir /media/storage/jdownloader/extracted
         chown -R "$USER":"$USER"
         # setup samba server
         apt-get install samba samba-common-bin
