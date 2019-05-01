@@ -26,11 +26,11 @@ while true; do
     esac
     if $STORAGE; then
         # format and mount external storage
-        sudo parted -s -a optimal /dev/sda mktabel msdos -- mkpart primary ext4 0% 100%
-        sudo mkfs.ext4 -L STORAGE /dev/sda1
+        sudo parted -s -a optimal /dev/sda mklabel msdos -- mkpart primary ext4 0% 100%
+        sudo mkfs.ext4 -L STORAGE /dev/sda
         sudo mkdir /media/storage
         sudo mount /dev/sda1 /media/storage
-        echo "/dev/sda1 /media/usbhdd ext4 defaults 0 0" >> /etc/fstab
+        echo "/dev/sda /media/storage ext4 defaults 0 0" >> /etc/fstab
         # create jdownloader folders on external storage
         sudo mkdir /media/storage/jdownloader
         sudo mkdir /media/storage/jdownloader/downloading
