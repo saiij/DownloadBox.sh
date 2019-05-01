@@ -65,7 +65,6 @@ while true; do
     do
         echo "When you are done press [ENTER]."
         if [[ $key == $'\x0a' ]]; # if input == ENTER key
-        fi
     done
     sudo -u $USERNAME java -jar JDownloader.jar -norestart
     echo"
