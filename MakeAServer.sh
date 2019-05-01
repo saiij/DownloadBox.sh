@@ -5,7 +5,7 @@ echo "
 |     \.-----.--.--.--.-----.|  |.-----.---.-.--|  |   __ \.-----.--.--.  .-----.|  |--.
 |  --  |  _  |  |  |  |     ||  ||  _  |  _  |  _  |   __ <|  _  |_   _|__|__ --||     |
 |_____/|_____|________|__|__||__||_____|___._|_____|______/|_____|__.__|__|_____||__|__|                                                                                        
-Version 0.1
+Version 0.1.2
 "
 # check if script is run as root
 if [ $USER != root ]
@@ -17,7 +17,7 @@ apt update
 apt upgrade
 # ask if user want to use an external storage
 while true; do
-    read -p "Please enter your Username: " USER
+    read -p "Please enter your Username: " USERNAME
     read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
     case "$yn" in
         [Yy]* ) STORAGE=true;;
@@ -37,7 +37,7 @@ while true; do
         sudo mkdir /media/storage/jdownloader
         sudo mkdir /media/storage/jdownloader/downloading
         sudo mkdir /media/storage/jdownloader/extracted
-        chown -R "$USER":"$USER"
+        chown -R "$USERNAME":"$USERNAME"
         # setup samba server
         apt-get install samba samba-common-bin
         echo "
@@ -50,11 +50,11 @@ while true; do
         browseable = yes
         security = user
         encrypt passwords = true
-        force user = $USER" >> /etc/samba/smb.conf
+        force user = $USERNAME" >> /etc/samba/smb.conf
     fi
     echo "Set a password for the Samba Server"
-    smbpasswd -a "$USER"
-    echo "Your username is: $USER"
+    smbpasswd -a "$USERNAME"
+    echo "Your username is: $USERNAME"
     # install java
     sudo apt install openjdk-11-jre-headless || sudo apt-get install oracle-java8-jdk
     # install jdownloader2
@@ -74,7 +74,7 @@ while true; do
     Type=simple
 
     ExecStart=/usr/bin/java -jar /home/pi/bin/jdownloader/JDownloader.jar
-    User=$USER
+    User=$USERNAME
 
     RemainAfterExit=yes
 
