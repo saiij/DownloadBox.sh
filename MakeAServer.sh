@@ -60,32 +60,30 @@ while true; do
     mkdir ~/bin/jdownloader
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
-    echo "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register)"
-    while read -r -n1 key
-    do
-        echo "When you are done press [ENTER]."
-        if [[ $key == $'\x0a' ]]; # if input == ENTER key
-    done
-    sudo -u $USERNAME java -jar JDownloader.jar -norestart
-    echo"
-    [Unit]
-    Description=JDownloader
-    Wants=network.target
-    After=network.target
+    read -r -n1 -p "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register). When you are done press [ENTER]." key
+        if [[ $key == $'\x0a' ]]; then
+            sudo -u $USERNAME java -jar JDownloader.jar -norestart
+            echo"
+            [Unit]
+            Description=JDownloader
+            Wants=network.target
+            After=network.target
 
-    [Service]
-    Type=simple
+            [Service]
+            Type=simple
 
-    ExecStart=/usr/bin/java -jar /home/pi/bin/jdownloader/JDownloader.jar
-    User=$USERNAME
+            ExecStart=/usr/bin/java -jar /home/pi/bin/jdownloader/JDownloader.jar
+            User=$USERNAME
 
-    RemainAfterExit=yes
+            RemainAfterExit=yes
 
-    [Install]
-    WantedBy=multi-user.target" > /etc/systemd/system/jdownloader.service
-    systemctl daemon-reload
-    systemctl start jdownloader.service
-    systemctl enable jdownloader.service
+            [Install]
+            WantedBy=multi-user.target" > /etc/systemd/system/jdownloader.service
+            systemctl daemon-reload
+            systemctl start jdownloader.service
+            systemctl enable jdownloader.service
+        fi
+    
     echo "Please kill the script (CTRL+C) and reboot your system after the jdownloader stucks in the update progress."
     echo "To configure you jdownloader login to you MyJDownloader Account."
     sudo -u $USERNAME java -jar JDownloader.jar -norestart
