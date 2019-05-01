@@ -5,7 +5,7 @@ echo "
 |     \.-----.--.--.--.-----.|  |.-----.---.-.--|  |   __ \.-----.--.--.  .-----.|  |--.
 |  --  |  _  |  |  |  |     ||  ||  _  |  _  |  _  |   __ <|  _  |_   _|__|__ --||     |
 |_____/|_____|________|__|__||__||_____|___._|_____|______/|_____|__.__|__|_____||__|__|                                                                                        
-Version 0.1
+Version 0.2
 "
 # check if script is run as root
 if [ $USER != root ]
@@ -35,7 +35,7 @@ while true; do
         sudo mkdir /media/storage/jdownloader
         sudo mkdir /media/storage/jdownloader/downloading
         sudo mkdir /media/storage/jdownloader/extracted
-        chown -R "$USERNAME":"$USERNAME"
+        chown -R "$USERNAME":"$USERNAME" /media/storage
         # setup samba server
         apt-get install samba samba-common-bin
         echo "
@@ -60,8 +60,14 @@ while true; do
     mkdir ~/bin/jdownloader
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
-    echo "Please create an account for MyJDownloader (https://my.jdownloader.org/login.html#register)"
-    java -jar JDownloader.jar -norestart
+    echo "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register)"
+    while read -r -n1 key
+    do
+        echo "When you are done press [ENTER]."
+        if [[ $key == $'\x0a' ]]; # if input == ENTER key
+        fi
+    done
+    sudo -u $USERNAME java -jar JDownloader.jar -norestart
     echo"
     [Unit]
     Description=JDownloader
@@ -83,6 +89,6 @@ while true; do
     systemctl enable jdownloader.service
     echo "Please kill the script (CTRL+C) and reboot your system after the jdownloader stucks in the update progress."
     echo "To configure you jdownloader login to you MyJDownloader Account."
-    java -jar JDownloader.jar -norestart
+    sudo -u $USERNAME java -jar JDownloader.jar -norestart
 done
 exit
