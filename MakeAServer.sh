@@ -17,7 +17,7 @@ apt update
 apt upgrade
 # ask if user want to use an external storage
 while true; do
-    read -p $USER "Please enter your Username:"
+    read -p "Please enter your Username: " USER
     read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
     case "$yn" in
         [Yy]* ) STORAGE=true;;
