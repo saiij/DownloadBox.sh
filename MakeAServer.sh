@@ -17,6 +17,7 @@ apt update
 apt upgrade
 # ask if user want to use an external storage
 while true; do
+    read -p $USER "Please enter your Username:"
     read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
     case "$yn" in
         [Yy]* ) STORAGE=true;;
@@ -55,7 +56,7 @@ while true; do
     smbpasswd -a "$USER"
     echo "Your username is: $USER"
     # install java
-    apt install openjdk-11-jre-headless
+    sudo apt install openjdk-11-jre-headless || sudo apt-get install oracle-java8-jdk
     # install jdownloader2
     mkdir ~/bin
     mkdir ~/bin/jdownloader
