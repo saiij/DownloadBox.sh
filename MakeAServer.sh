@@ -61,7 +61,7 @@ while true; do
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
     read -r -p "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register). When you are done press [ENTER]." KEY
-        if [ $KEY == $'\x0a' ]; then
+        if [ $KEY = $'\x0a' ]; then
             sudo -u $USERNAME java -jar JDownloader.jar -norestart
             echo"
             [Unit]
