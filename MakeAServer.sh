@@ -89,7 +89,7 @@ while true; do
     sleep 30s
     killall /usr/bin/java -jar /home/$USERNAME/bin/jdownloader/JDownloader.jar
     # give out amount of time the script needed
-    DURATION=( $SECONDS - $START )
+    DURATION=$(( $SECONDS - $START ))
     echo "Finished in $DURATION sec."
     echo "Rebooting.."
     sleep 10s
