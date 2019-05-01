@@ -26,9 +26,9 @@ while true; do
     esac
     if $STORAGE; then
         # format and mount external storage
-        sudo parted /dev/sda 
-        sudo parted mktable msdos
-        sudo parted mkpart primary ext4 0% 100%
+        sudo parted --script /dev/sda 
+        sudo parted --script mktable msdos
+        sudo parted --script mkpart primary ext4 0% 100%
         sudo mkfs.ext4 -L STORAGE /dev/sda1
         sudo mkdir /media/storage
         sudo mount /dev/sda1 /media/storage
