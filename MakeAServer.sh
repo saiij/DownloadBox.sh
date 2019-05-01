@@ -5,7 +5,7 @@ echo "
 |     \.-----.--.--.--.-----.|  |.-----.---.-.--|  |   __ \.-----.--.--.  .-----.|  |--.
 |  --  |  _  |  |  |  |     ||  ||  _  |  _  |  _  |   __ <|  _  |_   _|__|__ --||     |
 |_____/|_____|________|__|__||__||_____|___._|_____|______/|_____|__.__|__|_____||__|__|                                                                                        
-Version 0.1.2
+Version 0.1
 "
 # check if script is run as root
 if [ $USER != root ]
@@ -26,9 +26,9 @@ while true; do
     esac
     if $STORAGE; then
         # format and mount external storage
-        sudo parted --script /dev/sda 
-        mktable msdos
-        mkpart primary ext4 0% 100%
+        sudo parted /dev/sda 
+        sudo parted mktable msdos
+        sudo parted mkpart primary ext4 0% 100%
         sudo mkfs.ext4 -L STORAGE /dev/sda1
         sudo mkdir /media/storage
         sudo mount /dev/sda1 /media/storage
