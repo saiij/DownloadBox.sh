@@ -18,13 +18,14 @@ START=$SECONDS
 apt update
 apt upgrade
 # ask if user want to use an external storage
+if [ "0" ]; then STORAGE=true; else STORAGE=false;
 while true; do
     read -p "Please enter your Username: " USERNAME
     while true; do
      read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
      case "$yn" in
-         [Yy][Ee][Ss]|[Yy]) STORAGE=true;;
-         [Nn][Oo]|[Nn]) STORAGE=false;;
+         [Yy][Ee][Ss]|[Yy]) return 1;;
+         [Nn][Oo]|[Nn]) return 0;;
          * ) echo "Please answer (y)es or (n)o.";;
      esac
     done
