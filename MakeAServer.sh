@@ -23,8 +23,8 @@ while true; do
     while true; do
      read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
      case "$yn" in
-         [Yy][Ee][Ss]|[Yy]) return STORAGE=true;;
-         [Nn][Oo]|[Nn]) return STORAGE=false;;
+         [Yy][Ee][Ss]|[Yy]) STORAGE=true;;
+         [Nn][Oo]|[Nn]) STORAGE=false;;
          * ) echo "Please answer (y)es or (n)o.";;
      esac
     done
