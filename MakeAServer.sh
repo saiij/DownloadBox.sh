@@ -20,7 +20,6 @@ START=$SECONDS
 #ask for username
 read -r -p "Please enter your Username: " USERNAME
 # ask if user want to use an external storage
-if [ "$yn" = "1" ]; then STORAGE=true; else STORAGE=false; fi
 while true; do
     read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
     case "$yn" in
@@ -28,8 +27,9 @@ while true; do
         [Nn][Oo]|[Nn]) return 0;;
         * ) echo "Please answer (y)es or (n)o.";;
     esac
-    echo "a"
+    echo "$yn"
 done
+if [ "$yn" = "1" ]; then STORAGE=true; else STORAGE=false; fi
 echo "b"  
 if [ "$STORAGE" = true ]; then
     # format and mount external storage
