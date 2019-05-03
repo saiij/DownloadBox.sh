@@ -20,9 +20,9 @@ apt upgrade
 # ask if user want to use an external storage
 if [ "$1" ]; then STORAGE=true; else STORAGE=false; fi
 while true; do
-    read -p -r "Please enter your Username: " USERNAME
+    read -r -p "Please enter your Username: " USERNAME
     while true; do
-     read -p -r "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
+     read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
      case "$yn" in
          [Yy][Ee][Ss]|[Yy]) return 1;;
          [Nn][Oo]|[Nn]) return 0;;
