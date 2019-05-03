@@ -15,19 +15,22 @@ fi
 #track start
 START=$SECONDS
 # update system
-apt update
-apt upgrade
+#apt update
+#apt upgrade
+#ask for username
+read -r -p "Please enter your Username: " USERNAME
 # ask if user want to use an external storage
 if [ "$yn" = "1" ]; then STORAGE=true; else STORAGE=false; fi
-read -r -p "Please enter your Username: " USERNAME
 while true; do
     read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
     case "$yn" in
-        [Yy][Ee][Ss]|[Yy]) return 1;;
-        [Nn][Oo]|[Nn]) return 0;;
+        [Yy][Ee][Ss]|[Yy]) 1;;
+        [Nn][Oo]|[Nn]) 0;;
         * ) echo "Please answer (y)es or (n)o.";;
     esac
-done  
+    echo "a"
+done
+echo "b"  
 if [ "$STORAGE" = true ]; then
     # format and mount external storage
     sudo parted -s -a optimal /dev/sda mklabel msdos -- mkpart primary ext4 0% 100%
@@ -82,7 +85,7 @@ if [ "$KEY" = $'\x0a' ]; then
     RemainAfterExit=yes
 
     [Install]
-    WantedBy=multi-user.target" > /etc/systemd/system/jdownloader.service
+    WantedBy=multi-user.target" >> /etc/systemd/system/jdownloader.service
     systemctl daemon-reload
     systemctl start jdownloader.service
     systemctl enable jdownloader.service
