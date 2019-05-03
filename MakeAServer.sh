@@ -13,7 +13,7 @@ if [ "$USER" != root ]
     exit
 fi
 #track start
-START=`date +%s`
+START=$(date +%s)
 # update system
 apt update
 apt upgrade
@@ -83,16 +83,15 @@ if [ "$KEY" = $'\x0a' ]; then
 
     [Install]
     WantedBy=multi-user.target" >> /etc/systemd/system/jdownloader.service
-    systemctl daemon-reload
-    systemctl start jdownloader.service
-    systemctl enable jdownloader.service
     fi
 sudo -u "$USERNAME" java -jar JDownloader.jar -norestart
 sleep 30s
 killall java
+systemctl enable jdownloader.service
+systemctl start jdownloader.service
 # give out amount of time the script needed
-END=`date +%s`
-echo Execution time was `expr $end - $start` seconds.
+END=$(date +%s)
+echo "Execution time was $(expr $END - $START) seconds."
 echo "Rebooting.."
 sleep 5s
 sudo reboot
