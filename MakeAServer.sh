@@ -20,18 +20,14 @@ START=$SECONDS
 #ask for username
 read -r -p "Please enter your Username: " USERNAME
 # ask if user want to use an external storage
-while true; do
-    read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
-    case "$yn" in
-        [Yy][Ee][Ss]|[Yy]) return 1;;
-        [Nn][Oo]|[Nn]) return 0;;
-        * ) echo "Please answer (y)es or (n)o.";;
-    esac
-    echo "$yn"
-done
-if [ "$yn" = "1" ]; then STORAGE=true; else STORAGE=false; fi
-echo "b"  
-if [ "$STORAGE" = true ]; then
+
+read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
+case "$yn" in
+    [Yy][Ee][Ss]|[Yy]) return 1;;
+    [Nn][Oo]|[Nn]) return 0;;
+esac
+echo "$yn"
+if [ "$yn" = 1 ]; then
     # format and mount external storage
     sudo parted -s -a optimal /dev/sda mklabel msdos -- mkpart primary ext4 0% 100%
     sudo mkfs.ext4 -L STORAGE /dev/sda
