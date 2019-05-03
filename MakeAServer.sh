@@ -15,8 +15,8 @@ fi
 #track start
 START=`date +%s`
 # update system
-#apt update
-#apt upgrade
+apt update
+apt upgrade
 #ask for username
 read -r -p "Please enter your Username: " USERNAME
 # ask if user want to use an external storage
@@ -92,7 +92,7 @@ sleep 30s
 killall java
 # give out amount of time the script needed
 END=`date +%s`
-echo "Execution time was `expr $end - $start` seconds."
+echo Execution time was `expr $end - $start` seconds.
 echo "Rebooting.."
 sleep 5s
 sudo reboot
