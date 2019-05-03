@@ -8,7 +8,7 @@ echo "
 Version 0.2
 "
 # check if script is run as root
-if [ $USER != root ]
+if [ "$USER" != root ]
   then echo "Please run as root"
   exit
 fi
@@ -18,11 +18,11 @@ START=$SECONDS
 apt update
 apt upgrade
 # ask if user want to use an external storage
-if [ "0" ]; then STORAGE=true; else STORAGE=false;
+if [ "$1" ]; then STORAGE=true; else STORAGE=false; fi
 while true; do
-    read -p "Please enter your Username: " USERNAME
+    read -pr "Please enter your Username: " USERNAME
     while true; do
-     read -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
+     read -pr "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
      case "$yn" in
          [Yy][Ee][Ss]|[Yy]) return 1;;
          [Nn][Oo]|[Nn]) return 0;;
@@ -66,8 +66,8 @@ while true; do
     cd ~/bin/jdownloader || exit
     wget http://installer.jdownloader.org/JDownloader.jar
     read -r -p "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register). When you are done press [ENTER]." KEY
-        if [ $KEY=$'\x0a' ]; then
-            sudo -u $USERNAME java -jar JDownloader.jar -norestart
+        if [ "$KEY" = $'\x0a' ]; then
+            sudo -u "$USERNAME" java -jar JDownloader.jar -norestart
             echo"
             [Unit]
             Description=JDownloader
@@ -88,11 +88,11 @@ while true; do
             systemctl start jdownloader.service
             systemctl enable jdownloader.service
         fi
-    sudo -u $USERNAME java -jar JDownloader.jar -norestart
+    sudo -u "$USERNAME" java -jar JDownloader.jar -norestart
     sleep 30s
-    killall /usr/bin/java -jar /home/$USERNAME/bin/jdownloader/JDownloader.jar
+    killall /usr/bin/java -jar /home/"$USERNAME"/bin/jdownloader/JDownloader.jar
     # give out amount of time the script needed
-    DURATION=$(( $SECONDS - $START ))
+    DURATION=$(( SECONDS - START ))
     echo "Finished in $DURATION sec."
     echo "Rebooting.."
     sleep 10s
