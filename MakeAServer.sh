@@ -13,7 +13,7 @@ if [ "$USER" != root ]
     exit
 fi
 #track start
-START=$SECONDS
+START=`date +%s`
 # update system
 #apt update
 #apt upgrade
@@ -59,9 +59,10 @@ echo "Your username is: $USERNAME"
 # install java
 sudo apt install openjdk-11-jre-headless || sudo apt-get install oracle-java8-jdk
 # install jdownloader2
-mkdir ~/bin
-mkdir ~/bin/jdownloader
+sudo -u "$USERNAME" mkdir ~/bin
+sudo -u "$USERNAME" mkdir ~/bin/jdownloader
 cd ~/bin/jdownloader || exit
+chown -R "$USERNAME":"$USERNAME" ~/bin
 wget http://installer.jdownloader.org/JDownloader.jar
 read -r -p "Please create an account for MyJDownloader now. (https://my.jdownloader.org/login.html#register). When you are done press [ENTER]." KEY
 if [ "$KEY" = $'\x0a' ]; then
@@ -88,12 +89,12 @@ if [ "$KEY" = $'\x0a' ]; then
     fi
 sudo -u "$USERNAME" java -jar JDownloader.jar -norestart
 sleep 30s
-killall /usr/bin/java -jar /home/"$USERNAME"/bin/jdownloader/JDownloader.jar
+killall java
 # give out amount of time the script needed
-DURATION=$(( SECONDS - START ))
-echo "Finished in $DURATION sec."
+END=`date +%s`
+echo "Execution time was `expr $end - $start` seconds."
 echo "Rebooting.."
-sleep 10s
+sleep 5s
 sudo reboot
 
 exit
