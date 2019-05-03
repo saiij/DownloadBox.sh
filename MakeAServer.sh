@@ -9,8 +9,8 @@ Version 0.2
 "
 # check if script is run as root
 if [ "$USER" != root ]
-  then echo "Please run as root"
-  exit
+    then echo "Please run as root"
+    exit
 fi
 #track start
 START=$SECONDS
@@ -22,13 +22,12 @@ if [ "$1" ]; then STORAGE=true; else STORAGE=false; fi
 while true; do
     read -r -p "Please enter your Username: " USERNAME
     while true; do
-     read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
-     case "$yn" in
-         [Yy][Ee][Ss]|[Yy]) return 1;;
-         [Nn][Oo]|[Nn]) return 0;;
-         * ) echo "Please answer (y)es or (n)o.";;
-     esac
-    done
+    read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
+    case "$yn" in
+        [Yy][Ee][Ss]|[Yy]) return 1;;
+        [Nn][Oo]|[Nn]) return 0;;
+        * ) echo "Please answer (y)es or (n)o.";;
+    esac
     if $STORAGE; then
         # format and mount external storage
         sudo parted -s -a optimal /dev/sda mklabel msdos -- mkpart primary ext4 0% 100%
