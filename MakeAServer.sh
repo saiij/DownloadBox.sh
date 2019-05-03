@@ -18,7 +18,7 @@ START=$SECONDS
 apt update
 apt upgrade
 # ask if user want to use an external storage
-if [ "$1" ]; then STORAGE=true; else STORAGE=false; fi
+if [ "$yn" == "1" ]; then STORAGE=true; else STORAGE=false; fi
 while true; do
     read -r -p "Please enter your Username: " USERNAME
     while true; do
