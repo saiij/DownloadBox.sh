@@ -82,11 +82,9 @@ if [ "$KEY" = $'\x0a' ]; then
     RemainAfterExit=yes
 
     [Install]
-    WantedBy=multi-user.target" >> /etc/systemd/system/jdownloader.service
+    WantedBy=multi-user.target" > /etc/systemd/system/jdownloader.service
     fi
 sudo -u "$USERNAME" java -jar JDownloader.jar -norestart
-sleep 30s
-killall java
 systemctl enable jdownloader.service
 systemctl start jdownloader.service
 # give out amount of time the script needed
