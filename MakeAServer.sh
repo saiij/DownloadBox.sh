@@ -23,8 +23,8 @@ read -r -p "Please enter your Username: " USERNAME
 
 read -r -p "Do you wish to use a HDD or SSD? This will format the drive.  DANGER: ALL YOUR DATA WILL BE LOST! (y/n)?" yn
 case "$yn" in
-    [Yy][Ee][Ss]|[Yy]) return 1;;
-    [Nn][Oo]|[Nn]) return 0;;
+    [Yy][Ee][Ss]|[Yy]) yn=1;;
+    [Nn][Oo]|[Nn]) exit;;
 esac
 echo "$yn"
 if [ "$yn" = 1 ]; then
