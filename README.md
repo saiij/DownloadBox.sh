@@ -18,7 +18,7 @@ a bash script that setup a download Server with JDownloader2 and SAMBA.
 2. Enable SSH.
 3. Get the script:
 ```
-wget https://github.com/saiij/DownloadBox.sh/blob/master/MakeAServer.sh
+wget https://github.com/devofthings/DownloadBox.sh/blob/master/MakeAServer.sh
 ```
 
 ## Usage
